@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CharactersModule } from './characters/characters.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       },
     }),
     TypeOrmModule.forFeature([]),
+    CharactersModule,
   ],
   controllers: [],
   providers: [],
