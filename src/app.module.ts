@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CharactersModule } from './characters/characters.module';
+import { Character } from './characters/characters.entity';
+import { CharactersService } from './characters/characters.service';
+import { CharactersController } from './characters/characters.controller';
 
 @Module({
   imports: [
@@ -20,15 +23,15 @@ import { CharactersModule } from './characters/characters.module';
       database: process.env.DB_NAME_GOOGLE || process.env.DB_NAME_VERCEL,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [],
+      entities: [Character],
       extra: {
         ssl: false,
       },
     }),
-    TypeOrmModule.forFeature([]),
+    TypeOrmModule.forFeature([Character]),
     CharactersModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [CharactersController],
+  providers: [CharactersService],
 })
 export class AppModule {}
