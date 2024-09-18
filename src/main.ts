@@ -20,7 +20,7 @@ async function bootstrap() {
   const reflector = app.get(Reflector);
 
   app.enableCors({
-    origin: '*', // URL de tu frontend
+    origin: '*',
     methods: 'GET,POST,PUT,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
   });
