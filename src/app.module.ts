@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CharactersModule } from './characters/characters.module';
+import { Character } from './characters/characters.entity';
+import { CharactersService } from './characters/characters.service';
+import { CharactersController } from './characters/characters.controller';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -19,14 +24,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: process.env.DB_NAME_GOOGLE || process.env.DB_NAME_VERCEL,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [],
+      entities: [Character],
       extra: {
         ssl: false,
       },
     }),
-    TypeOrmModule.forFeature([]),
+    ScheduleModule.forRoot(),
+    TypeOrmModule.forFeature([Character]),
+    CharactersModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [CharactersController],
+  providers: [CharactersService],
 })
 export class AppModule {}
