@@ -22,9 +22,27 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# NestJS + PostgreSQL API
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Este proyecto es una API desarrollada en **NestJS** con **PostgreSQL** como base de datos. Proporciona un entorno escalable y eficiente para construir aplicaciones backend con Node.js y PostgreSQL.
+
+## Requisitos
+
+- [Node.js](https://nodejs.org/en/) (versión 14 o superior)
+- [PostgreSQL](https://www.postgresql.org/) instalado
+- [NestJS CLI](https://docs.nestjs.com/cli/overview) para manejar comandos de Nest
+
+## Variables de entorno
+
+Asegúrate de configurar las siguientes variables de entorno en tu archivo `.env` para la conexión con tu base de datos de PostgreSQL:
+
+```env
+DB_HOST_VERCEL=your_db_host
+DB_PORT_VERCEL="5432"
+DB_USERNAME_VERCEL=your_db_username
+DB_PASSWORD_VERCEL=your_db_password
+DB_NAME_VERCEL=your_db_name
+```
 
 ## Installation
 
