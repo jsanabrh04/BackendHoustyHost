@@ -26,7 +26,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       synchronize: true,
       entities: [Character],
       extra: {
-        ssl: false,
+        ssl: true,
       },
     }),
     ScheduleModule.forRoot(),
