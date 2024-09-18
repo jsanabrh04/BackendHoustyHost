@@ -7,7 +7,7 @@ export class CharactersController {
 
   @Post('load')
   async loadCharacters() {
-    await this.charactersService.fetchAndSave200Characters();
+    await this.charactersService.saveCharacters();
     return { message: '200 characters loaded into the database' };
   }
 
@@ -29,5 +29,11 @@ export class CharactersController {
       page,
       limit,
     };
+  }
+
+  @Post('upsert')
+  async refreshCharactersWithUpsert(): Promise<void> {
+    await this.charactersService.upsert();
+    console.log('Upsert completed');
   }
 }

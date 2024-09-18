@@ -5,6 +5,7 @@ import { CharactersModule } from './characters/characters.module';
 import { Character } from './characters/characters.entity';
 import { CharactersService } from './characters/characters.service';
 import { CharactersController } from './characters/characters.controller';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CharactersController } from './characters/characters.controller';
         ssl: false,
       },
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forFeature([Character]),
     CharactersModule,
   ],

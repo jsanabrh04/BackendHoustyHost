@@ -10,11 +10,11 @@ export class CharactersService {
     @InjectRepository(Character) private characterRepo: Repository<Character>,
   ) {}
 
-  async fetchAndSave200Characters(): Promise<void> {
+  async saveCharacters(): Promise<void> {
     const count = await this.characterRepo.count();
 
     if (count >= 200) {
-      console.log('Ya hay 200 personajes en la base de datos.');
+      console.log('There are already 200 characters!');
       return;
     }
 
@@ -37,7 +37,7 @@ export class CharactersService {
     }
 
     await this.characterRepo.save(allCharacters);
-    console.log('200 personajes guardados en la base de datos.');
+    console.log('Save Characters');
   }
 
   async getCharacters(name: string, page: number, limit: number) {
@@ -50,5 +50,30 @@ export class CharactersService {
     query.skip((page - 1) * limit).take(limit);
 
     return await query.getManyAndCount();
+  }
+
+  async upsert(): Promise<void> {
+    let allCharacters = [];
+    const totalPages = 10;
+
+    for (let page = 1; page <= totalPages; page++) {
+      const { data } = await axios.get(
+        `https://rickandmortyapi.com/api/character?page=${page}`,
+      );
+
+      const characters = data.results.map((char) => ({
+        id: char.id,
+        name: char.name,
+        status: char.status,
+        species: char.species,
+        gender: char.gender,
+        location: char.location.name,
+      }));
+
+      allCharacters = [...allCharacters, ...characters];
+    }
+
+    await this.characterRepo.save(allCharacters);
+    console.log('Database updated');
   }
 }
