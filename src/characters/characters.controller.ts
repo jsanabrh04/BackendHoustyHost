@@ -11,17 +11,23 @@ export class CharactersController {
     return { message: '200 characters loaded into the database' };
   }
 
-  @Get()
+  @Get('getData')
   async listCharacters(
     @Query('name') name: string,
-    @Query('page') page = 1,
-    @Query('limit') limit = 10,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
   ) {
     const [characters, total] = await this.charactersService.getCharacters(
       name,
       page,
       limit,
     );
-    return { characters, total, page, limit };
+
+    return {
+      data: characters,
+      total,
+      page,
+      limit,
+    };
   }
 }

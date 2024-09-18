@@ -44,7 +44,7 @@ export class CharactersService {
     const query = this.characterRepo.createQueryBuilder('character');
 
     if (name) {
-      query.where('character.name ILIKE :name', { name: ` %${name}% ` });
+      query.where('character.name ILIKE :name', { name: `%${name}%` });
     }
 
     query.skip((page - 1) * limit).take(limit);
