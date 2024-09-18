@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "c0a91d74-795a-4f50-8c61-dccab7d8758f",
+		"name": "HousyHost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37280670"
+	},
+	"item": [
+		{
+			"name": "loadData",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5432/characters/load",
+					"host": [
+						"localhost"
+					],
+					"port": "5432",
+					"path": [
+						"characters",
+						"load"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upsert",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5432/characters/getData?page=20&limit=10&name=rick",
+					"host": [
+						"localhost"
+					],
+					"port": "5432",
+					"path": [
+						"characters",
+						"getData"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "20"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "name",
+							"value": "rick"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
