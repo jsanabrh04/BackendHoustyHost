@@ -9,7 +9,7 @@ export class CronjobService {
 
   @Cron('*/30 * * * *')
   async handleCron() {
-    console.log('actualización de personajes.');
+    console.log('updating characters');
     await this.charactersService.saveCharacters();
   }
 }

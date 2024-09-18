@@ -53,7 +53,16 @@ export class CharactersService {
   }
 
   async upsert(): Promise<void> {
-    let allCharacters = [];
+    const totalCharacters = 200;
+    const existingCharacters = await this.characterRepo.find();
+    const existingIds = new Set(existingCharacters.map((char) => char.id));
+    const existingCount = existingCharacters.length;
+    const charactersNeeded = totalCharacters - existingCount;
+    if (charactersNeeded <= 0) {
+      console.log('No need to upsert, already have 200 characters');
+      return;
+    }
+    let allCharacters: any[] = [];
     const totalPages = 10;
 
     for (let page = 1; page <= totalPages; page++) {
@@ -61,7 +70,7 @@ export class CharactersService {
         `https://rickandmortyapi.com/api/character?page=${page}`,
       );
 
-      const characters = data.results.map((char) => ({
+      const characters = data.results.map((char: any) => ({
         id: char.id,
         name: char.name,
         status: char.status,
@@ -71,9 +80,23 @@ export class CharactersService {
       }));
 
       allCharacters = [...allCharacters, ...characters];
-    }
 
-    await this.characterRepo.save(allCharacters);
-    console.log('Database updated');
+      if (allCharacters.length >= totalCharacters) {
+        break;
+      }
+    }
+    const uniqueCharacters = Array.from(
+      new Map(allCharacters.map((item) => [item.id, item])).values(),
+    );
+    const newCharacters = uniqueCharacters.filter(
+      (character) => !existingIds.has(character.id),
+    );
+    const charactersToAdd = newCharacters.slice(0, charactersNeeded);
+    if (charactersToAdd.length > 0) {
+      await this.characterRepo.save(charactersToAdd);
+      console.log('Database updated with additional characters');
+    } else {
+      console.log('No new characters needed');
+    }
   }
 }
